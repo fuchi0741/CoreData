@@ -43,6 +43,7 @@ class LessonTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "studentCell", for: indexPath)
+        cell.textLabel?.text = studentList[indexPath.row].name
         return cell
     }
     
