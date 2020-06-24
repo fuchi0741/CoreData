@@ -43,7 +43,7 @@ class LessonService {
         let request: NSFetchRequest<Lesson> = Lesson.fetchRequest()
         request.predicate = NSPredicate(format: "type = %@", type.rawValue)
         //type = %@は何かしらのフォーマットを形成している
-        var lesson = Lesson()
+        var lesson = Lesson(context: moc)
         do {
             let result = try moc.fetch(request)
             lesson = result.isEmpty ? addNew(lesson: type) : result.first!
