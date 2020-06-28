@@ -47,12 +47,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C5A585BA24904744006C5019 /* Service */ = {
+		C5A585BA24904744006C5019 /* ServiceModel */ = {
 			isa = PBXGroup;
 			children = (
 				C5A585B824904734006C5019 /* LessonService.swift */,
 			);
-			path = Service;
+			path = ServiceModel;
 			sourceTree = "<group>";
 		};
 		C5BE9E8F24853AF300FC3552 = {
@@ -81,7 +81,7 @@
 				C5BE9EA924853AF800FC3552 /* LaunchScreen.storyboard */,
 				C5BE9EAC24853AF800FC3552 /* Info.plist */,
 				C5DABED3248EFA6700926E69 /* Controller */,
-				C5A585BA24904744006C5019 /* Service */,
+				C5A585BA24904744006C5019 /* ServiceModel */,
 			);
 			path = CoreDataCrud;
 			sourceTree = "<group>";
