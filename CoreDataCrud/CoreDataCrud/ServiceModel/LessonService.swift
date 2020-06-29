@@ -25,7 +25,6 @@ class LessonService {
     }
     
     //MARK: -Public
-    // CREATE
     func addStudent(name: String, for type: LessonType, completion: StudentHandler) {
         //completionは生徒をす追加したことをLessonTVCに伝えるため
         let student = Student(context: moc)
@@ -39,6 +38,26 @@ class LessonService {
     }
     
     //MARK: -Private
+    //もう一度解読する必要あり
+    func updata(currentStudent student: Student, withName name: String, forLesson lesson: String) {
+        //レッスンが変更ない場合
+        if student.lesson?.type == lesson {
+            let lesson = student.lesson
+            let studentList = Array(lesson?.students?.mutableCopy() as! NSMutableSet) as! [Student]
+            if let index = studentList.index(where: { $0 == student }){
+                studentList[index].name = name
+                lesson?.students = NSSet(array: studentList)
+            }
+        }
+        else {
+            if let lesson = lessonExists(LessonType(rawValue: lesson)!){
+                lesson.removeFromStudents(student)
+                student.name = name
+                register(student, fot: lesson)
+            }
+        }
+        save()
+    }
     
     // READ
     func getAllStudents() -> [Student]? { //?を記述することでnilを返すことを許容している
@@ -59,8 +78,8 @@ class LessonService {
             return nil
         }
     }
-    // UPDATA
     
+    // CREATE
     //studentがすでにレッスンを登録しているかどうか
     private func lessonExists(_ type: LessonType) -> Lesson? {
         let request: NSFetchRequest<Lesson> = Lesson.fetchRequest()

@@ -54,16 +54,17 @@ class LessonTableViewController: UITableViewController {
         studentToUpdata = studentList[indexPath.row]
         present(alertController(actionType: "updata"), animated: true, completion: nil)
     }
-
     
     // MARK: - Private
     private func alertController(actionType: String) -> UIAlertController {
         let alertController = UIAlertController(title: "Fuchi Lesson", message: "Student Info", preferredStyle: .alert)
         alertController.addTextField { (textField: UITextField) in
             textField.placeholder = "名前"
+            textField.text = self.studentToUpdata == nil ? "" : self.studentToUpdata?.name
         }
         alertController.addTextField { (textField: UITextField) in
             textField.placeholder = "Lesson: スキー or スノボ"
+            textField.text = self.studentToUpdata == nil ? "" : self.studentToUpdata?.lesson?.type
         }
         let defaultAction = UIAlertAction(title: actionType.uppercased(), style: .default) { [weak self] (action) in
             guard let studentName = alertController.textFields?[0].text, let lesson = alertController.textFields?[1].text else { return }
@@ -77,11 +78,11 @@ class LessonTableViewController: UITableViewController {
                 }
             }
             //Updataの処理
+            //解読の必要性
             else {
                 guard let name = alertController.textFields?.first?.text, !name.isEmpty, let studentToUpdata = self?.studentToUpdata, let lessonType = alertController.textFields?[1].text else { return }
-                
-                
-        
+                self?.lessonService?.updata(currentStudent: studentToUpdata, withName: name, forLesson: lessonType)
+                self?.studentToUpdata = nil
             }
             DispatchQueue.main.async {
                 self?.loadStudents()
