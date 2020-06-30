@@ -25,6 +25,7 @@ class LessonService {
     }
     
     //MARK: -Public
+    // CREATE
     func addStudent(name: String, for type: LessonType, completion: StudentHandler) {
         //completionは生徒をす追加したことをLessonTVCに伝えるため
         let student = Student(context: moc)
@@ -37,7 +38,6 @@ class LessonService {
         save()
     }
     
-    //MARK: -Private
     //もう一度解読する必要あり
     func updata(currentStudent student: Student, withName name: String, forLesson lesson: String) {
         //レッスンが変更ない場合
@@ -79,7 +79,7 @@ class LessonService {
         }
     }
     
-    // CREATE
+    //MARK: -Private
     //studentがすでにレッスンを登録しているかどうか
     private func lessonExists(_ type: LessonType) -> Lesson? {
         let request: NSFetchRequest<Lesson> = Lesson.fetchRequest()
