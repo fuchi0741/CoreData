@@ -79,6 +79,15 @@ class LessonService {
         }
     }
     
+    //Delete
+    func delete(student: Student) {
+        let lesson = student.lesson
+        students = students.filter({ $0 != student})
+        lesson?.removeFromStudents(student)
+        moc.delete(student)
+        save()
+    }
+    
     //MARK: -Private
     //studentがすでにレッスンを登録しているかどうか
     private func lessonExists(_ type: LessonType) -> Lesson? {
